@@ -20,7 +20,8 @@ if [ ! -z "$ADVERTISED_HOST" ]; then
     if grep -q "^advertised.host.name" $KAFKA_HOME/config/server.properties; then
         sed -r -i "s/#(advertised.host.name)=(.*)/\1=$ADVERTISED_HOST/g" $KAFKA_HOME/config/server.properties
     else
-        echo "advertised.host.name=$ADVERTISED_HOST" >> $KAFKA_HOME/config/server.properties
+        echo "\n" >> $KAFKA_HOME/config/server.properties
+        echo "advertised.host.name=$ADVERTISED_HOST \n" >> $KAFKA_HOME/config/server.properties
     fi
 fi
 if [ ! -z "$ADVERTISED_PORT" ]; then
@@ -35,12 +36,12 @@ fi
 # Set the zookeeper chroot
 if [ ! -z "$ZK_CHROOT" ]; then
     # wait for zookeeper to start up
-    until /usr/share/zookeeper/bin/zkServer.sh status; do
+    until /opt/zookeeper/bin/zkServer.sh status; do
       sleep 0.1
     done
 
     # create the chroot node
-    echo "create /$ZK_CHROOT \"\"" | /usr/share/zookeeper/bin/zkCli.sh || {
+    echo "create /$ZK_CHROOT \"\"" | /opt/zookeeper/bin/zkCli.sh || {
         echo "can't create chroot in zookeeper, exit"
         exit 1
     }
