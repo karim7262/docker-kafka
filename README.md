@@ -1,3 +1,10 @@
+Fork of Kafka in Docker
+===
+
+Forked to use Zookeeper 3.5.4-beta. Updated Dockerfile and scripts for 3.5.4. Also added a Makefile.-
+
+
+
 Kafka in Docker
 ===
 
